@@ -11,7 +11,6 @@ export class UserContext {
     const store = storage.getStore();
     if (!store) throw new Error('No user context found');
     const userId = store.userId;
-    console.log(userId);
     return userId;
   }
 }

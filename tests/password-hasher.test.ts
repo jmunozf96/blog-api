@@ -5,7 +5,6 @@ describe('Password Hasher (bcrypt)', () => {
 
   it('should hash password and validate with compare', async () => {
     const hash = await bcrypt.hash(plainPassword, 10);
-    console.log(hash);
     expect(hash).not.toEqual(plainPassword);
 
     const isValid = await bcrypt.compare(plainPassword, hash);
