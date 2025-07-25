@@ -13,15 +13,16 @@ export class PostRepository {
             where: { authorId: userId },
             orderBy: { publishedAt: 'desc' },
         });
-    }
+    } private buildPostFilters(params: PostPaginationParams, userId?: number) {
+        const { title, publishedAfter, publishedBefore } = params;
+        const where: any = {};
 
-    async findAllByUserPaginated(userId: number, params: PostPaginationParams): Promise<PaginatedResult<Post>> {
-        const { page, limit, title, publishedAfter, publishedBefore } = params;
-        const skip = (page - 1) * limit;
-        const where: any = { authorId: userId };
+        if (userId) {
+            where.authorId = userId;
+        }
 
         if (title) {
-            where.title = { contains: title };
+            where.title = { contains: title, mode: 'insensitive' };
         }
 
         if (publishedAfter || publishedBefore) {
@@ -39,6 +40,12 @@ export class PostRepository {
                 }
             }
         }
+
+        return where;
+    }
+
+    private async getPaginatedPosts(where: any, page: number, limit: number): Promise<PaginatedResult<Post>> {
+        const skip = (page - 1) * limit;
 
         const [posts, total] = await Promise.all([
             prisma.post.findMany({
@@ -60,6 +67,17 @@ export class PostRepository {
             },
         };
     }
+
+    async findAllPaginated(params: PostPaginationParams): Promise<PaginatedResult<Post>> {
+        const where = this.buildPostFilters(params);
+        return this.getPaginatedPosts(where, params.page, params.limit);
+    }
+
+    async findAllByUserPaginated(userId: number, params: PostPaginationParams): Promise<PaginatedResult<Post>> {
+        const where = this.buildPostFilters(params, userId);
+        return this.getPaginatedPosts(where, params.page, params.limit);
+    }
+
 
     async findById(id: string): Promise<Post | null> {
         return prisma.post.findFirst({

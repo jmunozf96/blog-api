@@ -4,6 +4,7 @@ export interface CommentDTO {
     id: string
     content: string
     postId: string
+    authorId: number
     createdAt: Date
     updatedAt: Date
 }
@@ -13,6 +14,7 @@ export const toDTO = (model: Comment): CommentDTO => {
         id: model.id,
         postId: model.postId,
         content: model.content,
+        authorId: model.authorId,
         createdAt: model.createdAt,
         updatedAt: model.updatedAt
     }

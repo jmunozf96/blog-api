@@ -20,7 +20,8 @@ export class CommentController {
 
     public createComment = async (req: Request, res: Response) => {
         const userId = UserContext.getUserId();
-        const { postId, content } = req.body;
+        const { postId } = req.params;
+        const { content } = req.body;
         const comment = await this.commentService.createComment(postId, userId, content);
         res.status(201).json(comment);
     };

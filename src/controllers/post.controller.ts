@@ -15,6 +15,7 @@ export class PostController {
         this.router.use(this.path, authMiddleware);
         this.router.post(this.path, upload.single('image'), multerErrorHandler, createPostValidation, validateRequest, this.createPost);
         this.router.get(this.path + '/', postQueryValidation, validateRequest, this.getPosts);
+        this.router.get(this.path + '/me', postQueryValidation, validateRequest, this.getCurrentUserPosts);
         this.router.get(this.path + '/:id', this.getPost);
         this.router.put(this.path + '/:id', upload.single('image'), multerErrorHandler, updatePostValidation, validateRequest, this.updatePost);
         this.router.delete(this.path + '/:id', this.deletePost);
@@ -37,6 +38,18 @@ export class PostController {
     };
 
     public getPosts = async (req: Request, res: Response) => {
+        const { page, limit, title, publishedAfter, publishedBefore } = req.query;
+        const result = await this.postService.getPostsPaginated({
+            page: Number(page),
+            limit: Number(limit),
+            title: title as string,
+            publishedAfter: publishedAfter as string,
+            publishedBefore: publishedBefore as string,
+        });
+        res.json(result);
+    };
+
+    public getCurrentUserPosts = async (req: Request, res: Response) => {
         const { page, limit, title, publishedAfter, publishedBefore } = req.query;
         const userId = UserContext.getUserId();
         const result = await this.postService.getUserPostsPaginated(userId, {

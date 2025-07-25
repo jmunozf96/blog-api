@@ -25,6 +25,12 @@ export class PostService {
         return toDTOs(posts);
     }
 
+    async getPostsPaginated(query: any): Promise<PaginatedResult<PostDTO>> {
+        const pagination = getPaginationParams(query);
+        var paginated = await this.postRepo.findAllPaginated(pagination);
+        return { data: toDTOs(paginated.data), meta: paginated.meta };
+    }
+
     async getUserPostsPaginated(authorId: number, query: any): Promise<PaginatedResult<PostDTO>> {
         const pagination = getPaginationParams(query);
         var paginated = await this.postRepo.findAllByUserPaginated(authorId, pagination);

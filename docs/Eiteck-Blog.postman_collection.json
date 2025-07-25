@@ -358,6 +358,107 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "FindMinePosts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Api}}/posts/me?title=&publishedAfter=2025-07-25T00:00:00Z",
+							"host": [
+								"{{Api}}"
+							],
+							"path": [
+								"posts",
+								"me"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": ""
+								},
+								{
+									"key": "publishedAfter",
+									"value": "2025-07-25T00:00:00Z"
+								},
+								{
+									"key": "publishedBefore",
+									"value": "2025-12-24T23:59:59Z",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Result",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Api}}/posts/me?title=&publishedAfter=2025-07-25T00:00:00Z",
+									"host": [
+										"{{Api}}"
+									],
+									"path": [
+										"posts",
+										"me"
+									],
+									"query": [
+										{
+											"key": "title",
+											"value": ""
+										},
+										{
+											"key": "publishedAfter",
+											"value": "2025-07-25T00:00:00Z"
+										},
+										{
+											"key": "publishedBefore",
+											"value": "2025-12-24T23:59:59Z",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "377"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"179-END2eEsFAQ7MixN6ktNstukjdGg\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 25 Jul 2025 14:24:22 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": \"3f2f8155-2420-4ca7-a888-346840cc5e36\",\n            \"title\": \"Este es mi titulo\",\n            \"content\": \"Este es mi contenido\",\n            \"imageUrl\": \"https://res.cloudinary.com/dbm00d1sc/image/upload/v1753453428/publications/vmaikq8knbnrrqyckvrp.jpg\",\n            \"authorId\": 2,\n            \"publishedAt\": \"2025-07-25T14:23:47.793Z\",\n            \"updatedAt\": \"2025-07-25T14:23:47.793Z\"\n        }\n    ],\n    \"meta\": {\n        \"total\": 1,\n        \"page\": 1,\n        \"limit\": 10,\n        \"totalPages\": 1\n    }\n}"
+						}
+					]
 				}
 			]
 		},
@@ -370,13 +471,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{Api}}/posts/e47c9d44-dbe3-4b76-b7d6-5bad3f70dfa5/comments",
+							"raw": "{{Api}}/posts/3f2f8155-2420-4ca7-a888-346840cc5e36/comments",
 							"host": [
 								"{{Api}}"
 							],
 							"path": [
 								"posts",
-								"e47c9d44-dbe3-4b76-b7d6-5bad3f70dfa5",
+								"3f2f8155-2420-4ca7-a888-346840cc5e36",
 								"comments"
 							]
 						}
@@ -390,7 +491,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"content\": \"jaja muy bueno tu post crack xd!\"\r\n}",
+							"raw": "{\r\n    \"content\": \"jaja muy bueno tu post crack jajajajs!\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -398,13 +499,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{Api}}/posts/4656ee01-f131-46ee-9512-0e86889605d7/comments",
+							"raw": "{{Api}}/posts/3f2f8155-2420-4ca7-a888-346840cc5e36/comments",
 							"host": [
 								"{{Api}}"
 							],
 							"path": [
 								"posts",
-								"4656ee01-f131-46ee-9512-0e86889605d7",
+								"3f2f8155-2420-4ca7-a888-346840cc5e36",
 								"comments"
 							]
 						}
@@ -426,15 +527,15 @@
 							}
 						},
 						"url": {
-							"raw": "{{Api}}/posts/e47c9d44-dbe3-4b76-b7d6-5bad3f70dfa5/comments/44ade740-4965-45dd-bfde-f01ef67c521e",
+							"raw": "{{Api}}/posts/3f2f8155-2420-4ca7-a888-346840cc5e36/comments/34375c42-27b9-4904-9ac8-c2093b557dca",
 							"host": [
 								"{{Api}}"
 							],
 							"path": [
 								"posts",
-								"e47c9d44-dbe3-4b76-b7d6-5bad3f70dfa5",
+								"3f2f8155-2420-4ca7-a888-346840cc5e36",
 								"comments",
-								"44ade740-4965-45dd-bfde-f01ef67c521e"
+								"34375c42-27b9-4904-9ac8-c2093b557dca"
 							]
 						}
 					},
@@ -455,15 +556,15 @@
 							}
 						},
 						"url": {
-							"raw": "{{Api}}/posts/4656ee01-f131-46ee-9512-0e86889605d7/comments/17dc869e-3666-40d5-b431-5d224f77cab9",
+							"raw": "{{Api}}/posts/3f2f8155-2420-4ca7-a888-346840cc5e36/comments/59fc29db-51b7-4a86-abc5-514b783322e8",
 							"host": [
 								"{{Api}}"
 							],
 							"path": [
 								"posts",
-								"4656ee01-f131-46ee-9512-0e86889605d7",
+								"3f2f8155-2420-4ca7-a888-346840cc5e36",
 								"comments",
-								"17dc869e-3666-40d5-b431-5d224f77cab9"
+								"59fc29db-51b7-4a86-abc5-514b783322e8"
 							]
 						}
 					},
