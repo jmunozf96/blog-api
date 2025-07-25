@@ -9,7 +9,6 @@ export class AuthService {
 
   public async login(email: string, password: string) {
     const user = await prisma.user.findUnique({ where: { email } });
-    console.log(user)
     if (!user) throw new CustomError('Invalid credentials.');
     console.log(password)
     const isPasswordValid = await this.hasher.compare(password, user.password);

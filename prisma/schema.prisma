@@ -24,6 +24,7 @@ model User {
   updatedAt DateTime @updatedAt
 
   refreshToken RefreshToken?
+  Post         Post[]
 }
 
 model RefreshToken {
@@ -33,4 +34,15 @@ model RefreshToken {
   createdAt DateTime @default(now())
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Post {
+  id            String   @id @default(uuid())
+  title         String
+  content       String
+  imageUrl      String
+  imagePublicId String
+  publishedAt   DateTime @default(now())
+  authorId      Int
+  author        User     @relation(fields: [authorId], references: [id])
 }
