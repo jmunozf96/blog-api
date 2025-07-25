@@ -1,8 +1,8 @@
 import { CloudinaryService } from './cloudinary.service';
 import { PostRepository } from '../repositories/post.repository';
 import { NotFoundError } from '../errors/not-found.error';
-import { getPaginationParams, PaginatedResult } from '../models/pagination.model';
-import { PostDTO, toDTO, toDTOs } from '../models/post.dto';
+import { PaginatedResult } from '../models/pagination.model';
+import { getPaginationParams, PostDTO, toDTO, toDTOs } from '../models/post.dto';
 
 export class PostService {
     constructor(private postRepo: PostRepository) { }

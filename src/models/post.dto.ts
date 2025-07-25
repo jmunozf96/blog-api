@@ -1,4 +1,5 @@
 import { Post } from "../generated/prisma"
+import { PaginationParams } from "./pagination.model"
 
 export interface PostDTO {
     id: string
@@ -7,6 +8,12 @@ export interface PostDTO {
     imageUrl: string
     publishedAt: Date
     updatedAt: Date
+}
+
+export interface PostPaginationParams extends PaginationParams {
+    title?: string;
+    publishedAfter?: string;
+    publishedBefore?: string;
 }
 
 export const toDTO = (model: Post): PostDTO => {
@@ -22,4 +29,22 @@ export const toDTO = (model: Post): PostDTO => {
 
 export const toDTOs = (model: Post[]): PostDTO[] => {
     return model.map(toDTO)
+}
+
+export const getPaginationParams = (query: any): PostPaginationParams => {
+    const page = parseInt(query.page) || 1;
+    const limit = parseInt(query.limit) || 10;
+
+    const title = query.title ? String(query.title) : undefined;
+    const isValidDate = (dateStr: string) => !isNaN(Date.parse(dateStr));
+
+    const publishedAfter = isValidDate(query.publishedAfter)
+        ? new Date(query.publishedAfter).toISOString()
+        : undefined;
+
+    const publishedBefore = isValidDate(query.publishedBefore)
+        ? new Date(query.publishedBefore).toISOString()
+        : undefined;
+
+    return { page, limit, title, publishedAfter, publishedBefore };
 }

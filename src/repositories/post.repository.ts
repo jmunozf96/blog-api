@@ -1,5 +1,6 @@
 import { Post } from "../generated/prisma";
-import { PaginatedResult, PaginationParams } from "../models/pagination.model";
+import { PaginatedResult } from "../models/pagination.model";
+import { PostPaginationParams } from "../models/post.dto";
 import prisma from "../prisma";
 
 export class PostRepository {
@@ -14,18 +15,39 @@ export class PostRepository {
         });
     }
 
-    async findAllByUserPaginated(userId: number, params: PaginationParams): Promise<PaginatedResult<Post>> {
-        const { page, limit } = params;
+    async findAllByUserPaginated(userId: number, params: PostPaginationParams): Promise<PaginatedResult<Post>> {
+        const { page, limit, title, publishedAfter, publishedBefore } = params;
         const skip = (page - 1) * limit;
+        const where: any = { authorId: userId };
+
+        if (title) {
+            where.title = { contains: title };
+        }
+
+        if (publishedAfter || publishedBefore) {
+            where.publishedAt = {};
+            if (publishedAfter) {
+                const afterDate = new Date(publishedAfter);
+                if (!isNaN(afterDate.getTime())) {
+                    where.publishedAt.gte = afterDate;
+                }
+            }
+            if (publishedBefore) {
+                const beforeDate = new Date(publishedBefore);
+                if (!isNaN(beforeDate.getTime())) {
+                    where.publishedAt.lte = beforeDate;
+                }
+            }
+        }
 
         const [posts, total] = await Promise.all([
             prisma.post.findMany({
-                where: { authorId: userId },
+                where,
                 orderBy: { publishedAt: 'desc' },
                 skip,
                 take: limit,
             }),
-            prisma.post.count({ where: { authorId: userId } }),
+            prisma.post.count({ where }),
         ]);
 
         return {

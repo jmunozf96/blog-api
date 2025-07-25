@@ -1,14 +1,17 @@
 import { PrismaClient } from '../src/generated/prisma';
 import bcrypt from 'bcrypt';
+import dotenv from 'dotenv';
 
+dotenv.config();
 const prisma = new PrismaClient();
 
 async function main() {
-  const password = '$2b$10$wJLCgT4fdAoNr/eqqosi3uI4pnwVdHxTDIVw7ejFEpMf3bRbaRE/.';
+  const email = process.env.ADMIN_EMAIL!;
+  const password = process.env.ADMIN_PASSWORD!;
   const hashedPassword = await bcrypt.hash(password, 10);
 
   const existingUser = await prisma.user.findUnique({
-    where: { email: 'admin@admin.com' },
+    where: { email },
   });
 
   if (!existingUser) {
@@ -16,7 +19,7 @@ async function main() {
       data: {
         firstName: 'Admin',
         lastName: 'Admin',
-        email: 'admin@admin.com',
+        email,
         password: hashedPassword,
       },
     });

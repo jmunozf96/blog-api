@@ -1,0 +1,518 @@
+{
+	"info": {
+		"_postman_id": "57879ed3-ad76-477b-9549-8d5941311e88",
+		"name": "Eiteck-Blog",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27083510",
+		"_collection_link": "https://grey-spaceship-22934.postman.co/workspace/Projects~cc581adc-7a7e-45c0-8d70-db345e58b0f1/collection/27083510-57879ed3-ad76-477b-9549-8d5941311e88?action=share&source=collection_link&creator=27083510"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Obtiene la respuesta como JSON\r",
+									"let jsonData = pm.response.json();\r",
+									"\r",
+									"// Guarda el token como variable de colección\r",
+									"pm.collectionVariables.set(\"accessToken\", jsonData.accessToken);\r",
+									"\r",
+									"// Opcional: mostrar en consola\r",
+									"console.log(\"Token guardado:\", jsonData.accessToken);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@admin.com\",\n    \"password\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Api}}/auth/login",
+							"host": [
+								"{{Api}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Obtiene la respuesta como JSON\r",
+									"let jsonData = pm.response.json();\r",
+									"\r",
+									"// Guarda el token como variable de colección\r",
+									"pm.collectionVariables.set(\"accessToken\", jsonData.accessToken);\r",
+									"\r",
+									"// Opcional: mostrar en consola\r",
+									"console.log(\"Token guardado:\", jsonData.accessToken);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"jdmunozf97+1@gmail.com\",\n    \"password\": \"admin1234Q@\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Api}}/auth/login",
+							"host": [
+								"{{Api}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc1MzQxNzU1MiwiZXhwIjoxNzU0MDIyMzUyfQ.HNtdNgK9PYsVES_Ni5SB2e_C9qhtr6MecnJgrQ98eus\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Api}}/auth/refresh",
+							"host": [
+								"{{Api}}"
+							],
+							"path": [
+								"auth",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Account",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Api}}/account",
+							"host": [
+								"{{Api}}"
+							],
+							"path": [
+								"account"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SignUp",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Jesus David\",\r\n    \"lastName\": \"Muñoz Farfan\",\r\n    \"email\": \"jdmunozf97+1@gmail.com\",\r\n    \"password\": \"admin1234Q@\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Api}}/auth/signup",
+							"host": [
+								"{{Api}}"
+							],
+							"path": [
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Posts",
+			"item": [
+				{
+					"name": "Add",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Este es mi titulo",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "Este es mi contenido",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/Jesus/Pictures/3b6f9444fb4412f0edfb742894f2b3f1.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{Api}}/posts",
+							"host": [
+								"{{Api}}"
+							],
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Este es mi titulo actualizado ok?",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "Este es mi contenido",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/Jesus/Pictures/homero-simpson-tras-velar-por-la-llegada-de-obama-0323-g1.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{Api}}/posts/4656ee01-f131-46ee-9512-0e86889605d7",
+							"host": [
+								"{{Api}}"
+							],
+							"path": [
+								"posts",
+								"4656ee01-f131-46ee-9512-0e86889605d7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Api}}/posts/4656ee01-f131-46ee-9512-0e86889605d7",
+							"host": [
+								"{{Api}}"
+							],
+							"path": [
+								"posts",
+								"4656ee01-f131-46ee-9512-0e86889605d7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{Api}}/posts/4656ee01-f131-46ee-9512-0e86889605d7",
+							"host": [
+								"{{Api}}"
+							],
+							"path": [
+								"posts",
+								"4656ee01-f131-46ee-9512-0e86889605d7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FindAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Api}}/posts?title=&publishedAfter=2025-07-25T00:00:00Z",
+							"host": [
+								"{{Api}}"
+							],
+							"path": [
+								"posts"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": ""
+								},
+								{
+									"key": "publishedAfter",
+									"value": "2025-07-25T00:00:00Z"
+								},
+								{
+									"key": "publishedBefore",
+									"value": "2025-12-24T23:59:59Z",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comments",
+			"item": [
+				{
+					"name": "FindAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Api}}/posts/e47c9d44-dbe3-4b76-b7d6-5bad3f70dfa5/comments",
+							"host": [
+								"{{Api}}"
+							],
+							"path": [
+								"posts",
+								"e47c9d44-dbe3-4b76-b7d6-5bad3f70dfa5",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\": \"jaja muy bueno tu post crack xd!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Api}}/posts/4656ee01-f131-46ee-9512-0e86889605d7/comments",
+							"host": [
+								"{{Api}}"
+							],
+							"path": [
+								"posts",
+								"4656ee01-f131-46ee-9512-0e86889605d7",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\": \"jaja muy bueno tu post crack, pero no se ya lo cambie!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Api}}/posts/e47c9d44-dbe3-4b76-b7d6-5bad3f70dfa5/comments/44ade740-4965-45dd-bfde-f01ef67c521e",
+							"host": [
+								"{{Api}}"
+							],
+							"path": [
+								"posts",
+								"e47c9d44-dbe3-4b76-b7d6-5bad3f70dfa5",
+								"comments",
+								"44ade740-4965-45dd-bfde-f01ef67c521e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\": \"jaja muy bueno tu post crack, pero no se ya lo cambie!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Api}}/posts/4656ee01-f131-46ee-9512-0e86889605d7/comments/17dc869e-3666-40d5-b431-5d224f77cab9",
+							"host": [
+								"{{Api}}"
+							],
+							"path": [
+								"posts",
+								"4656ee01-f131-46ee-9512-0e86889605d7",
+								"comments",
+								"17dc869e-3666-40d5-b431-5d224f77cab9"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{accessToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "Api",
+			"value": "http://localhost:3000",
+			"type": "default"
+		},
+		{
+			"key": "accessToken",
+			"value": ""
+		}
+	]
+}

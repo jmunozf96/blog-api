@@ -1,7 +1,7 @@
 import { Request, Response, Router } from 'express';
 import { PostService } from '../services/post.service';
 import { upload } from '../middlewares/upload.middleware';
-import { createPostValidation, updatePostValidation } from './validators/post.validator';
+import { createPostValidation, postQueryValidation, updatePostValidation } from './validators/post.validator';
 import { validateRequest } from '../middlewares/validateRequest';
 import { authMiddleware } from '../middlewares/auth.middleware';
 import { multerErrorHandler } from '../middlewares/multer.middleware';
@@ -14,7 +14,7 @@ export class PostController {
     constructor(private postService: PostService) {
         this.router.use(this.path, authMiddleware);
         this.router.post(this.path, upload.single('image'), multerErrorHandler, createPostValidation, validateRequest, this.createPost);
-        this.router.get(this.path + '/', this.getPosts);
+        this.router.get(this.path + '/', postQueryValidation, validateRequest, this.getPosts);
         this.router.get(this.path + '/:id', this.getPost);
         this.router.put(this.path + '/:id', upload.single('image'), multerErrorHandler, updatePostValidation, validateRequest, this.updatePost);
         this.router.delete(this.path + '/:id', this.deletePost);
@@ -37,8 +37,15 @@ export class PostController {
     };
 
     public getPosts = async (req: Request, res: Response) => {
+        const { page, limit, title, publishedAfter, publishedBefore } = req.query;
         const userId = UserContext.getUserId();
-        const result = await this.postService.getUserPostsPaginated(userId, req.query);
+        const result = await this.postService.getUserPostsPaginated(userId, {
+            page: Number(page),
+            limit: Number(limit),
+            title: title as string,
+            publishedAfter: publishedAfter as string,
+            publishedBefore: publishedBefore as string,
+        });
         res.json(result);
     };
 
