@@ -6,6 +6,7 @@ export interface PostDTO {
     content: string
     imageUrl: string
     publishedAt: Date
+    updatedAt: Date
 }
 
 export const toDTO = (model: Post): PostDTO => {
@@ -14,7 +15,8 @@ export const toDTO = (model: Post): PostDTO => {
         title: model.title,
         content: model.content,
         imageUrl: model.imageUrl,
-        publishedAt: model.publishedAt
+        publishedAt: model.publishedAt,
+        updatedAt: model.updatedAt
     }
 }
 

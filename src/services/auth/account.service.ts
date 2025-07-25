@@ -1,4 +1,3 @@
-import { CustomError } from "../../errors/custom.error";
 import { NotFoundError } from "../../errors/not-found.error";
 import { UserDTO } from "../../models/user.dto";
 import prisma from "../../prisma";

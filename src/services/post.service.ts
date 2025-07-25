@@ -2,7 +2,6 @@ import { CloudinaryService } from './cloudinary.service';
 import { PostRepository } from '../repositories/post.repository';
 import { NotFoundError } from '../errors/not-found.error';
 import { getPaginationParams, PaginatedResult } from '../models/pagination.model';
-import { Post } from '../generated/prisma';
 import { PostDTO, toDTO, toDTOs } from '../models/post.dto';
 
 export class PostService {

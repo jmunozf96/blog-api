@@ -3,7 +3,7 @@ import { PaginatedResult, PaginationParams } from "../models/pagination.model";
 import prisma from "../prisma";
 
 export class PostRepository {
-    async create(data: Omit<Post, 'id' | 'publishedAt'> & { imageUrl: string; imagePublicId: string }): Promise<Post> {
+    async create(data: Omit<Post, 'id' | 'publishedAt' | 'updatedAt'> & { imageUrl: string; imagePublicId: string }): Promise<Post> {
         return prisma.post.create({ data });
     }
 
