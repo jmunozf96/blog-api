@@ -4,7 +4,7 @@ services:
     container_name: blog-mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD}
+      MYSQL_ROOT_PASSWORD: w&P:Z2^VhzRCVt2r,4B4
       MYSQL_DATABASE: blog-db
     ports:
       - "3310:3306"
