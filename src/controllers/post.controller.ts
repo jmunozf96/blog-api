@@ -13,7 +13,7 @@ export class PostController {
 
     constructor(private postService: PostService) {
         this.router.use(this.path, authMiddleware);
-        this.router.post(this.path + '/', upload.single('image'), multerErrorHandler, createPostValidation, validateRequest, this.createPost);
+        this.router.post(this.path, upload.single('image'), multerErrorHandler, createPostValidation, validateRequest, this.createPost);
         this.router.get(this.path + '/', this.getPosts);
         this.router.get(this.path + '/:id', this.getPost);
         this.router.put(this.path + '/:id', upload.single('image'), multerErrorHandler, updatePostValidation, validateRequest, this.updatePost);
@@ -38,10 +38,7 @@ export class PostController {
 
     public getPosts = async (req: Request, res: Response) => {
         const userId = UserContext.getUserId();
-        const page = parseInt(req.query.page as string) || 1;
-        const limit = Math.min(parseInt(req.query.limit as string) || 10, 100);
-
-        const result = await this.postService.getUserPostsPaginated(userId, page, limit);
+        const result = await this.postService.getUserPostsPaginated(userId, req.query);
         res.json(result);
     };
 

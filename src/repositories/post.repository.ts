@@ -1,5 +1,5 @@
 import { Post } from "../generated/prisma";
-import { PaginationResult } from "../models/pagination.model";
+import { PaginatedResult, PaginationParams } from "../models/pagination.model";
 import prisma from "../prisma";
 
 export class PostRepository {
@@ -14,7 +14,8 @@ export class PostRepository {
         });
     }
 
-    async findAllByUserPaginated(userId: number, page: number, limit: number): Promise<PaginationResult<Post>> {
+    async findAllByUserPaginated(userId: number, params: PaginationParams): Promise<PaginatedResult<Post>> {
+        const { page, limit } = params;
         const skip = (page - 1) * limit;
 
         const [posts, total] = await Promise.all([
@@ -33,9 +34,15 @@ export class PostRepository {
                 total,
                 page,
                 limit,
-                pages: Math.ceil(total / limit),
+                totalPages: Math.ceil(total / limit),
             },
         };
+    }
+
+    async findById(id: string): Promise<Post | null> {
+        return prisma.post.findFirst({
+            where: { id },
+        });
     }
 
     async findByIdAndUser(id: string, userId: number): Promise<Post | null> {

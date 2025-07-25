@@ -1,7 +1,7 @@
 import { CloudinaryService } from './cloudinary.service';
 import { PostRepository } from '../repositories/post.repository';
 import { NotFoundError } from '../errors/not-found.error';
-import { PaginationResult } from '../models/pagination.model';
+import { getPaginationParams, PaginatedResult } from '../models/pagination.model';
 import { Post } from '../generated/prisma';
 
 export class PostService {
@@ -24,8 +24,9 @@ export class PostService {
         return await this.postRepo.findAllByUser(authorId);
     }
 
-    async getUserPostsPaginated(authorId: number, page = 1, limit = 10): Promise<PaginationResult<Post>> {
-        return this.postRepo.findAllByUserPaginated(authorId, page, limit);
+    async getUserPostsPaginated(authorId: number, query: any): Promise<PaginatedResult<Post>> {
+        const pagination = getPaginationParams(query);
+        return this.postRepo.findAllByUserPaginated(authorId, pagination);
     }
 
     async getPost(id: string, authorId: number) {
