@@ -1,0 +1,56 @@
+# Node modules
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Dependency directories (lockfiles optional)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Build outputs
+dist/
+build/
+
+# TypeScript
+*.tsbuildinfo
+
+# Environment variables
+.env
+.env.*
+
+# IDE/editor settings
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Coverage (e.g., from Jest)
+coverage/
+
+# Optional: If you use PM2 or similar
+pids/
+*.pid
+*.seed
+
+# Optional: If using Prisma or similar tools
+prisma/migrations/
+
+# Optional: If using uploads/temp folders
+uploads/
+tmp/
+temp/
+
+.env
+
+/src/generated/prisma
