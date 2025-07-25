@@ -16,8 +16,9 @@ export const authMiddleware: RequestHandler = (req, res, next) => {
   const token = authHeader.split(' ')[1];
   try {
     const payload = JwtService.verify<{ userId: number }>(token);
-    UserContext.setUserId(payload.userId);
-    next();
+    UserContext.run(payload.userId, () => {
+      next();
+    });
   } catch (err) {
     return next(Forbidden.Error());
   }

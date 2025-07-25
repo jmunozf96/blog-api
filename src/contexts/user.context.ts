@@ -1,16 +1,17 @@
-export class UserContext {
-  private static userId: number | null = null;
+import { AsyncLocalStorage } from 'node:async_hooks';
 
-  public static setUserId(id: number) {
-    this.userId = id;
+const storage = new AsyncLocalStorage<{ userId: number }>();
+
+export class UserContext {
+  public static run(userId: number, callback: () => void) {
+    storage.run({ userId }, callback);
   }
 
   public static getUserId(): number {
-    if (this.userId === null) throw new Error('No userId set');
-    return this.userId;
-  }
-
-  public static clear() {
-    this.userId = null;
+    const store = storage.getStore();
+    if (!store) throw new Error('No user context found');
+    const userId = store.userId;
+    console.log(userId);
+    return userId;
   }
 }
