@@ -3,6 +3,7 @@ import { PostRepository } from '../repositories/post.repository';
 import { NotFoundError } from '../errors/not-found.error';
 import { getPaginationParams, PaginatedResult } from '../models/pagination.model';
 import { Post } from '../generated/prisma';
+import { PostDTO, toDTO, toDTOs } from '../models/post.dto';
 
 export class PostService {
     constructor(private postRepo: PostRepository) { }
@@ -17,22 +18,24 @@ export class PostService {
             imageUrl: url,
             imagePublicId: publicId
         });
-        return post;
+        return toDTO(post);
     }
 
     async getAllPosts(authorId: number) {
-        return await this.postRepo.findAllByUser(authorId);
+        var posts = await this.postRepo.findAllByUser(authorId);
+        return toDTOs(posts);
     }
 
-    async getUserPostsPaginated(authorId: number, query: any): Promise<PaginatedResult<Post>> {
+    async getUserPostsPaginated(authorId: number, query: any): Promise<PaginatedResult<PostDTO>> {
         const pagination = getPaginationParams(query);
-        return this.postRepo.findAllByUserPaginated(authorId, pagination);
+        var paginated = await this.postRepo.findAllByUserPaginated(authorId, pagination);
+        return { data: toDTOs(paginated.data), meta: paginated.meta };
     }
 
     async getPost(id: string, authorId: number) {
         const post = await this.postRepo.findByIdAndUser(id, authorId);
         if (!post) throw new NotFoundError('Post not found');
-        return post;
+        return toDTO(post);
     }
 
     async updatePost(id: string, data: { authorId: number, title?: string; content?: string; file?: Express.Multer.File }) {
@@ -59,7 +62,7 @@ export class PostService {
             imagePublicId,
         });
 
-        return updatedPost;
+        return toDTO(updatedPost);
     }
 
     async deletePost(id: string, authorId: number) {
