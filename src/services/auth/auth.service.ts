@@ -1,5 +1,6 @@
 import { IPasswordHasher } from "../../contracts/services/password-hasher";
 import { CustomError } from "../../errors/custom.error";
+import { UserDTO } from "../../models/user.dto";
 import prisma from "../../prisma";
 import { JwtService } from "./jwt.service";
 
@@ -53,5 +54,30 @@ export class AuthService {
       accessToken: newAccessToken,
       refreshToken: newRefreshToken,
     };
+  }
+
+  async signup(firstName: string, lastName: string, email: string, password: string): Promise<UserDTO> {
+    const existing = await prisma.user.findUnique({ where: { email } });
+    if (existing) {
+      throw new CustomError('El correo ya está registrado.');
+    }
+
+    const hashedPassword = await this.hasher.hash(password);
+    const user = await prisma.user.create({
+      data: {
+        firstName,
+        lastName,
+        email,
+        password: hashedPassword,
+      },
+    });
+
+    const { password: _, ...userWithoutPassword } = user;
+    return <UserDTO>({
+      id: userWithoutPassword.id,
+      firstName: userWithoutPassword.firstName,
+      lastName: userWithoutPassword.lastName,
+      email: userWithoutPassword.email
+    });
   }
 }
