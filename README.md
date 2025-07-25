@@ -59,6 +59,31 @@ CLOUDINARY_API_SECRET=
 
 ---
 
+🔐 JWT – Claves de firma
+Debes definir las siguientes variables en tu archivo .env:
+
+```env
+JWT_SECRET_KEY=your_secret_key
+JWT_REFRESH_SECRET_KEY=your_refresh_secret_key
+```
+
+📌 Ejemplo:
+Puedes usar cualquier cadena aleatoria segura como clave:
+```env
+JWT_SECRET_KEY=my_super_secret_key_123
+JWT_REFRESH_SECRET_KEY=my_other_secret_key_456
+```
+
+✅ Recomendación:
+- Usa valores largos y difíciles de adivinar.
+- Opcionalmente puedes generarlos con un generador de claves seguras o comandos como:
+
+```bash
+openssl rand -base64 32
+```
+
+---
+
 ## 🐳 Opcional: Levantar base de datos con Docker
 
 ### 1. Ejecuta el contenedor de MySQL
