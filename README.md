@@ -28,7 +28,7 @@ Este proyecto es una API RESTful de un blog con autenticación JWT, subida de im
 ### 1. Clona el repositorio
 
 ```bash
-git clone git@github.com:jmunozf96/blog-api.git
+git clone https://github.com/jmunozf96/blog-api.git
 cd blog-api
 ```
 
